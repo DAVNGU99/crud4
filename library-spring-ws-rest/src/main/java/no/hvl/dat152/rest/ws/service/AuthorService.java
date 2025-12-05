@@ -49,11 +49,19 @@ public class AuthorService {
     }
 
 
-    public Author updateExistingAuthor(Author pdatedAuthor, int id){
+    public Author updateExistingAuthor(Author updatedAuthor, int id) throws Exception {
 
-        Author authorToBeReplaced = authorRepository.findById()
+        Author authorToBeReplaced = authorRepository.findById(id).orElse(null);
 
+        if(authorToBeReplaced == null){
+            throw new Exception("Finnes ingen med denne ID");
+        }
 
+        authorToBeReplaced.setFirstname(updatedAuthor.getFirstname());
+        authorToBeReplaced.setLastname(updatedAuthor.getLastname());
+        authorToBeReplaced.setBooks(updatedAuthor.getBooks());
+
+        return authorRepository.save(authorToBeReplaced);
 
     }
 

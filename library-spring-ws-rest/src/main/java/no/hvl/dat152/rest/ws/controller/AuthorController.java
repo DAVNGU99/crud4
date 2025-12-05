@@ -62,6 +62,18 @@ public class AuthorController {
 
     }
 
+    @PutMapping("/authors/{id}")
+    public ResponseEntity<Author> updateAuthor(@PathVariable int id, @RequestBody Author updateAuthor) throws Exception {
+
+
+        authorService.updateExistingAuthor(updateAuthor,id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
+
+    
+
 
 
 
